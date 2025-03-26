@@ -1,70 +1,183 @@
-# Getting Started with Create React App
+# JobsForce: AI-Powered Job Recommendation System
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 🌟 Overview
 
-## Available Scripts
+JobsForce is an intelligent job recommendation platform that uses advanced algorithms to match job seekers with opportunities based on their skills, experience, and preferences. The system analyzes resumes, extracts relevant skills, and provides personalized job recommendations.
 
-In the project directory, you can run:
+## 🚀 Features
 
-### `npm start`
+- **AI-Powered Job Matching**: Receive personalized job recommendations based on your skills profile
+- **Resume Analysis**: Automatically extract skills from uploaded resumes (PDF/DOCX)
+- **Skill Management**: Add, remove, and prioritize skills in your profile
+- **Advanced Filtering**: Filter jobs by match score, location, keywords, and more
+- **Paginated Results**: Browse through organized job listings with efficient pagination
+- **User Profiles**: Manage your professional information in one place
+- **Responsive Design**: Seamless experience across desktop and mobile devices
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 🛠️ Technology Stack
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Frontend
+- React.js with functional components and hooks
+- TailwindCSS for styling
+- React Router for navigation
+- Axios for API requests
+- React Context API for state management
+- Heroicons for UI icons
 
-### `npm test`
+### Backend
+- Node.js with Express
+- MongoDB database with Mongoose ODM
+- JWT authentication
+- Multer for file uploads
+- PDF/DOCX parsing libraries
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### ML Service
+- Python with Flask/FastAPI
+- NLP processing with spaCy/NLTK
+- Skills extraction models
+- Job matching algorithms
+- Multiple job source integrations
 
-### `npm run build`
+## 📋 Prerequisites
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Node.js (v14+)
+- MongoDB (v4+)
+- Python (v3.8+) for ML service
+- npm or yarn package manager
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## ⚙️ Installation
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 1. Clone the Repository
+```bash
+git clone https://github.com/alamba570/frontend_jobsforce.git
+cd jobsforce-recommendation-system
+```
 
-### `npm run eject`
+### 2. Backend Setup
+```bash
+cd backend
+npm install
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### 3. Frontend Setup
+```bash
+cd ../frontend
+npm install
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 4. ML Service Setup
+```bash
+cd ../ml-service
+pip install -r requirements.txt
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 🏗️ System Architecture
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Component Architecture
+```
+┌─────────────────────────────┐     ┌─────────────────────────┐     ┌───────────────────────┐
+│     Frontend (React)        │     │   Backend (Node.js)     │     │   ML Service (Python) │
+│  ┌─────────────────────┐    │     │  ┌─────────────────┐    │     │ ┌─────────────────┐   │
+│  │      React UI       │    │     │  │   Express API   │    │     │ │ Flask/FastAPI   │   │
+│  │  - User Interface   │◄───┼─────┼──┤ - REST Endpoints│◄───┼─────┼─┤ - ML Endpoints  │   │
+│  │  - State Management │    │     │  │ - Auth Logic    │    │     │ │ - Job Scraper   │   │
+│  └─────────────────────┘    │     │  └─────────────────┘    │     │ └─────────────────┘   │
+└─────────────────────────────┘     └─────────────────────────┘     └───────────────────────┘
+```
 
-## Learn More
+### Data Flow Architecture
+```
+┌───────────────┐     ┌─────────────────┐     ┌───────────────────┐
+│  User Actions │     │  Backend Server │     │    ML Service     │
+└───────┬───────┘     └────────┬────────┘     └─────────┬─────────┘
+        │  1. Register/Login   │                        │
+        │─────────────────────►│                        │
+        │  2. Return JWT Token │                        │
+        │◄─────────────────────│                        │
+        │  3. Upload Resume    │                        │
+        │─────────────────────►│  4. Extract Skills     │
+        │                      │───────────────────────►│
+        │                      │  5. Return Skills      │
+        │                      │◄───────────────────────│
+        │  6. Update Profile   │                        │
+        │◄─────────────────────│                        │
+        │  7. Request Jobs     │                        │
+        │─────────────────────►│  8. Request Job Match  │
+        │                      │───────────────────────►│
+        │                      │  9. Return Matched Jobs│
+        │                      │◄───────────────────────│
+        │ 10. Return Jobs      │                        │
+        │◄─────────────────────│                        │
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 🔄 API Endpoints
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Authentication
+- `POST /api/auth/register` - Register new user
+- `POST /api/auth/login` - Login user
+- `GET /api/auth/me` - Get current user
 
-### Code Splitting
+### User Profile
+- `GET /api/users/profile` - Get user profile
+- `PUT /api/users/profile` - Update user profile
+- `PUT /api/users/skills` - Update user skills
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Job Recommendations
+- `GET /api/recommendations/jobs` - Get job recommendations
+- `GET /api/jobs/:id` - Get job details
 
-### Analyzing the Bundle Size
+### Resume Management
+- `POST /api/resumes/upload` - Upload resume
+- `POST /api/resumes/extract` - Extract skills from resume
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## 🌟 Usage
 
-### Making a Progressive Web App
+1. Register/Login: Create an account or login with existing credentials
+2. Upload Resume: Upload your resume to automatically extract skills
+3. Edit Skills: Add or remove skills from your profile
+4. Browse Jobs: View personalized job recommendations
+5. Filter Results: Use filters to narrow down job options
+6. View Details: Click on jobs to see detailed information
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## 🧪 Testing
 
-### Advanced Configuration
+- Backend Tests
+- Frontend Tests
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## 🔍 Future Enhancements
 
-### Deployment
+- [ ] Job application tracking
+- [ ] AI-powered resume builder
+- [ ] Cover letter generator
+- [ ] Interview preparation tools
+- [ ] Salary insights and negotiations
+- [ ] Career path planning
+- [ ] Employer dashboard for posting jobs
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## 🤝 Contributing
 
-### `npm run build` fails to minify
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 📋 License
+
+This project is licensed under the MIT License. See the LICENSE file for details.
+
+## 👏 Acknowledgements
+
+- [React Documentation](https://reactjs.org/)
+- [Express Documentation](https://expressjs.com/)
+- [MongoDB Documentation](https://docs.mongodb.com/)
+- [TailwindCSS](https://tailwindcss.com/)
+- [HeroIcons](https://heroicons.com/)
+- [NLTK](https://www.nltk.org/)
+- [spaCy](https://spacy.io/)
+
+## 📞 Contact
+
+**Project Link:** [https://github.com/alamba570/frontend_jobsforce](https://github.com/alamba570/frontend_jobsforce)
+
+Made with ❤️ by Ankush
