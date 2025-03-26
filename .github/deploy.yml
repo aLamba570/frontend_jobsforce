@@ -30,7 +30,7 @@ jobs:
         run: npm run build
         env:
           CI: false  # Prevents treating warnings as errors
-          REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL || 'https://api.yourdomain.com' }}
+          REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL || 'https://localhost:5000/api' }}
       
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
